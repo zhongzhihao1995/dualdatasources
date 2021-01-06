@@ -1,0 +1,29 @@
+server:
+  port: 8002
+  servlet:
+    context-path: /dualdatasources
+  connection-timeout: 60000
+spring:
+  datasource:
+    # dynamic-datasource-spring-boot-starter 动态数据源的配置内容
+    dynamic:
+      primary: business # 设置默认的数据源或者数据源组，默认值即为 master
+      datasource:
+        #  核心数据源配置
+        core:
+          url: jdbc:mysql://111.111.111.111:3306/coredata?useSSL=false&useUnicode=true&characterEncoding=UTF-8
+          driver-class-name: com.mysql.jdbc.Driver
+          username: root
+          password: root
+        # 业务数据源配置
+        business:
+          url: jdbc:mysql://127.0.0.1:3306/businessdata?useSSL=false&useUnicode=true&characterEncoding=UTF-8
+          driver-class-name: com.mysql.jdbc.Driver
+          username: root
+          password: root
+
+# mybatis 配置内容
+mybatis:
+  config-location: classpath:mybatis-config.xml # 配置 MyBatis 配置文件路径
+  mapper-locations: classpath:mapper/*.xml # 配置 Mapper XML 地址
+  type-aliases-package: dualdatasources.db.entity # 配置数据库实体包路径
